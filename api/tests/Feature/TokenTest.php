@@ -28,11 +28,28 @@ class TokenTest extends TestCase
         $this->user = factory(\App\User::class)->create($credentials);
     }
 
-    public function test_a_user_can_request_a_token_using_username() {
+    public function test_a_user_can_request_a_token_using_username()
+    {
         $this->withoutExceptionHandling();
 
         $credentials = [
             'username' => 'user',
+            'password' => 'secret',
+        ];
+
+        $this->post(route('request.token'), $credentials)->assertJsonStructure([
+            'data' => [
+                'token'
+            ]
+        ]);
+    }
+
+    public function test_a_user_can_request_a_token_using_email()
+    {
+        $this->withoutExceptionHandling();
+
+        $credentials = [
+            'username' => 'admin@gmail.com',
             'password' => 'secret',
         ];
 
