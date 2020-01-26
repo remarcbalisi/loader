@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 Route::post('token', 'Api\TokenController@store')->name('request.token');
 
 //ADMIN ROUTES
-Route::group([
-    'prefix' => 'v1/admin',
-    'namespace' => 'Api\Admin'
-], function() {
+Route::name('admin.')->group(function() {
 
     Route::group([
+        'prefix' => 'v1/admin',
+        'namespace' => 'Api\Admin',
         'middleware' => [
-            'auth:api'
+            'auth:api',
+            'role:admin'
         ]
     ], function () {
-
+        Route::resource('user', 'UserController');
     });
 });

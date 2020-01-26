@@ -15,7 +15,7 @@ class TokenController extends Controller
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if(Auth::attempt(array($fieldType => $request->username, 'password' => $request->password)))
         {
-            $token = auth()->user()->createToken('Access Token')->accessToken;
+            $token = auth()->user()->createToken('Access Token ' . date("h:i:sa"))->accessToken;
             return new TokenResource(['token'=>$token]);
         }else{
             return response()->json(['message' => 'Sorry, wrong credentials'], 400);

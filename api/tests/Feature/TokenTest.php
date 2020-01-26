@@ -43,20 +43,4 @@ class TokenTest extends TestCase
             ]
         ]);
     }
-
-    public function test_a_user_can_request_a_token_using_email()
-    {
-        $this->withoutExceptionHandling();
-
-        $credentials = [
-            'username' => 'admin@gmail.com',
-            'password' => 'secret',
-        ];
-
-        $this->post(route('request.token'), $credentials)->assertJsonStructure([
-            'data' => [
-                'token'
-            ]
-        ]);
-    }
 }
