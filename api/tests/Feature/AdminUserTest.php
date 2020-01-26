@@ -28,8 +28,24 @@ class AdminUserTest extends TestCase
         $this->actingAs($this->admin, 'api');
 
         $this->getJson(route('admin.user.index'))
-        ->assertJsonFragment([
-            "id" => $this->admin->id,
-        ]);
+            ->assertJsonFragment([
+                "id" => $this->admin->id,
+            ]);
+    }
+
+    public function test_admin_can_add_new_user()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($this->admin, 'api');
+        $data = [
+            'name' => 'user',
+            'email' => 'user@email.com',
+            'password' => 'secret'
+        ];
+
+        $this->postJson(route('admin.user.store'), $data)
+            ->assertJsonFragment([
+                'name' => $data['name']
+            ]);
     }
 }
