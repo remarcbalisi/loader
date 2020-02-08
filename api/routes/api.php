@@ -19,3 +19,7 @@ Route::name('admin.')->group(function() {
         Route::resource('user', 'UserController');
     });
 });
+
+// Route::group(['middleware' => 'auth:api'], function() {
+    Route::Resource('account', 'AccountController');
+// });

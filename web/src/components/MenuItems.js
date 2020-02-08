@@ -19,7 +19,7 @@ const menuItems = [
   { itemLink: '', itemLabel: 'Dashboard', restrict:'' , itemIcon: <DashboardRoundedIcon /> },
   { itemLink: 'accounts', itemLabel: 'Accounts', restrict:'' , itemIcon: <AccountBoxRoundedIcon /> },
   { itemLink: 'customers', itemLabel: 'Customers', restrict:'' , itemIcon: <PeopleRoundedIcon /> },
-  { itemLink: 'purchases', itemLabel: 'Purchased', restrict:'' , itemIcon: <LayersRoundedIcon /> },
+  { itemLink: 'purchases', itemLabel: 'Purchases', restrict:'' , itemIcon: <LayersRoundedIcon /> },
   { itemLink: 'sales', itemLabel: 'Sales', restrict:'' , itemIcon: <BarChartRoundedIcon /> },
   { itemLink: 'reports', itemLabel: 'Reports', restrict:'' , itemIcon: <AssignmentRoundedIcon /> },
 ];
@@ -38,7 +38,6 @@ const MenuItems = (props) => {
 		<div>
 			{
 				menuItems.map((item, index) => {
-					console.log(item.itemLink, window.location.pathname.split('/')[1])
 					return (
 						<ListItem
 							button
