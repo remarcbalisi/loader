@@ -48,4 +48,22 @@ class AdminUserTest extends TestCase
                 'name' => $data['name']
             ]);
     }
+
+    public function test_admin_can_update_user()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($this->admin, 'api');
+        $user = create(User::class);
+
+        $data = [
+            'name' => 'updated_name',
+            'email' => 'user@email.com',
+            'password' => 'secret'
+        ];
+
+        $this->patchJson(route('admin.user.update', ['user'=>$user]), $data)
+            ->assertJsonFragment([
+                'name' => $data['name']
+            ]);
+    }
 }
