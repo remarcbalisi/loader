@@ -23,3 +23,6 @@ Route::name('admin.')->group(function() {
 // Route::group(['middleware' => 'auth:api'], function() {
     Route::Resource('account', 'AccountController');
 // });
+
+//Customer
+Route::Resource('customer', 'CustomerController');
