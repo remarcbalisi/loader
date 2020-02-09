@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => $faker->name,
             'email' => $faker->unique()->safeEmail,
+            'address' => $faker->address,
             'email_verified_at' => now(),
             'password' => bcrypt('secret'),
             'username' => 'admin',

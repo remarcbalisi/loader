@@ -18,6 +18,8 @@ class AdminUserTest extends TestCase
     {
         parent::setUp();
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'api']);
+        Role::create(['name' => 'agent', 'guard_name' => 'api']);
+        Role::create(['name' => 'direct', 'guard_name' => 'api']);
         $this->admin = create(User::class);
         $this->admin->assignRole($adminRole);
     }
@@ -40,7 +42,9 @@ class AdminUserTest extends TestCase
         $data = [
             'name' => 'user',
             'email' => 'user@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
+            'role' => 'direct',
+            'address' => $this->faker->address,
         ];
 
         $this->postJson(route('admin.user.store'), $data)
@@ -58,7 +62,9 @@ class AdminUserTest extends TestCase
         $data = [
             'name' => 'updated_name',
             'email' => 'user@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
+            'role' => 'direct',
+            'address' => $this->faker->address,
         ];
 
         $this->patchJson(route('admin.user.update', ['user'=>$user]), $data)
