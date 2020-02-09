@@ -13,10 +13,11 @@ Route::name('admin.')->group(function() {
         'namespace' => 'Api\Admin',
         'middleware' => [
             //'auth:api', //uncomment this to restrict to authenticated users only
-            'role:admin'
+//            'role:admin'
         ]
     ], function () {
         Route::resource('user', 'UserController');
+        Route::resource('user-number', 'UserNumberController');
     });
 });
 

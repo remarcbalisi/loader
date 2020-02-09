@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return (new UserCollection(User::get()));
+        return (new UserCollection(User::paginate()));
     }
 
     public function store(UserStoreRequest $request)

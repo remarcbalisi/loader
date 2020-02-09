@@ -18,7 +18,6 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    $typeArray = array("agent", "direct");
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
