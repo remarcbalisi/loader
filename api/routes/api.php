@@ -20,6 +20,8 @@ Route::name('admin.')->group(function() {
         Route::resource('user-number', 'UserNumberController');
         Route::resource('schedule', 'ScheduleController');
         Route::resource('purchase', 'PurchaseController');
+        Route::resource('sales', 'SalesController');
+        Route::patch('sales-toggle-paid/{sale}', 'SalesTogglePaidController')->name('sales.toggle.paid');
     });
 });
 
