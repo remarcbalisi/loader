@@ -18,6 +18,7 @@ Route::name('admin.')->group(function() {
     ], function () {
         Route::resource('user', 'UserController');
         Route::resource('user-number', 'UserNumberController');
+        Route::resource('schedule', 'ScheduleController');
     });
 });
 
