@@ -5,14 +5,19 @@ import { ListItem, ListItemIcon, ListItemText, } from '@material-ui/core';
 import { DashboardRounded as DashboardRoundedIcon, PeopleRounded as PeopleRoundedIcon, LayersRounded as LayersRoundedIcon, BarChartRounded as BarChartRoundedIcon, AccountBoxRounded as AccountBoxRoundedIcon, AssignmentRounded as AssignmentRoundedIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
-	MenuItemSelected: {
-		backgroundColor: '#3f51b5',
+	MenuItem: {
 		color: '#fff',
-		'&:hover': {
-			color: '#000'
-	 	},
+		'& svg': {
+			color: '#fff'
+		},
   },
-
+	MenuItemSelected: {
+		backgroundColor: '#00695C',
+		color: '#fff',
+		'& svg': {
+			color: '#fff'
+		},
+  },
 }));
 
 const menuItems = [
@@ -23,8 +28,6 @@ const menuItems = [
   { itemLink: 'sales', itemLabel: 'Sales', restrict:'' , itemIcon: <BarChartRoundedIcon /> },
   { itemLink: 'reports', itemLabel: 'Reports', restrict:'' , itemIcon: <AssignmentRoundedIcon /> },
 ];
-
-
 
 const MenuItems = (props) => {
 
@@ -42,7 +45,7 @@ const MenuItems = (props) => {
 						<ListItem
 							button
 							key={index}
-							className={(item.itemLink === window.location.pathname.split('/')[1] ? classes.MenuItemSelected : "")}
+							className={(item.itemLink === window.location.pathname.split('/')[1] ? classes.MenuItemSelected : classes.MenuItem)}
               onClick={() => handleMenuSelect(item.itemLink)}
 						>
 							<ListItemIcon>
@@ -54,48 +57,6 @@ const MenuItems = (props) => {
 				})
 			}
 		</div>
-
-
-
-
-		// <div>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<DashboardRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Dashboard" />
-		// 	</ListItem>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<AccountBoxRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Accounts" />
-		// 	</ListItem>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<PeopleRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Customers" />
-		// 	</ListItem>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<LayersRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Purchases" />
-		// 	</ListItem>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<BarChartRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Sales" />
-		// 	</ListItem>
-		// 	<ListItem button>
-		// 		<ListItemIcon>
-		// 				<AssignmentRoundedIcon />
-		// 		</ListItemIcon>
-		// 		<ListItemText primary="Reports" />
-		// 	</ListItem>
-		// </div>
 	)
 }
 

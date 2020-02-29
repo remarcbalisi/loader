@@ -1,25 +1,38 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-			main: '#ff4400',
-      contrastText: '#ffcc00',
-		},
-    secondary: {
-      light: '#0066ff',
-      main: '#0044ff',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffcc00',
-    },
-    // Used by `getContrastText()` to maximize the contrast between
-    // the background and the text.
-    contrastThreshold: 3,
-    // Used by the functions below to shift a color's luminance by approximately
-    // two indexes within its tonal palette.
-    // E.g., shift from Red 500 to Red 300 or Red 700.
-    tonalOffset: 0.2,
+	typography: {
+    fontFamily: [
+      '"Fira Sans"',
+			'sans-serif',
+    ].join(','),
   },
+  // palette: {
+  //   primary: {
+	// 		main: '#0077AF',
+  //     contrastText: '#ffffff',
+	// 	},
+  //   secondary: {
+  //     main: '#20A53D',
+  //     contrastText: '#ffffff',
+	// 	},
+	// 	info: {
+  //     main: '#078F8B',
+  //     contrastText: '#ffffff',
+  //   },
+	// 	success: {
+  //     main: '#20A53D',
+  //     contrastText: '#ffffff',
+	// 	},
+	// 	error: {
+  //     main: '#DB2B39',
+  //     contrastText: '#ffffff',
+	// 	},
+	// 	warning: {
+  //     main: '#F3A717',
+  //     contrastText: '#ffffff',
+  //   },
+  // },
 });
 
 
