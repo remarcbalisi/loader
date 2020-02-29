@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers\Api\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PurchaseStoreRequest;
+use App\Http\Requests\PurchaseUpdateRequest;
+use App\Http\Resources\PurchaseCollection;
+use App\Http\Resources\PurchaseResource;
+use App\Purchase;
+use Illuminate\Http\Request;
+
+class PurchaseController extends Controller
+{
+    public function index()
+    {
+        return (new PurchaseCollection(Purchase::paginate()));
+    }
+
+    public function show(Purchase $purchase)
+    {
+        return (new PurchaseResource($purchase));
+    }
+
+    public function store(PurchaseStoreRequest $request)
+    {
+        $new_purchase = Purchase::create($request->all());
+        return (new PurchaseResource($new_purchase));
+    }
+
+    public function update(PurchaseUpdateRequest $request, Purchase $purchase)
+    {
+        $purchase->update($request->all());
+        return (new PurchaseResource($purchase));
+    }
+}

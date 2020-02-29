@@ -12,17 +12,19 @@ Route::name('admin.')->group(function() {
         'prefix' => 'v1/admin',
         'namespace' => 'Api\Admin',
         'middleware' => [
-            'auth:api',
-            'role:admin'
+            //'auth:api', //uncomment this to restrict to authenticated users only
+//            'role:admin'
         ]
     ], function () {
         Route::resource('user', 'UserController');
+        Route::resource('user-number', 'UserNumberController');
+        Route::resource('schedule', 'ScheduleController');
+        Route::resource('purchase', 'PurchaseController');
+        Route::resource('sales', 'SalesController');
+        Route::patch('sales-toggle-paid/{sale}', 'SalesTogglePaidController')->name('sales.toggle.paid');
     });
 });
 
 // Route::group(['middleware' => 'auth:api'], function() {
     Route::Resource('account', 'AccountController');
 // });
-
-//Customer
-Route::Resource('customer', 'CustomerController');
