@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateAccountRequest;
 use App\Account;
 
 class AccountController extends Controller
@@ -18,15 +19,15 @@ class AccountController extends Controller
         return response($account, 200);
     }
 
-    public function store(Request $request)
+    public function store(CreateAccountRequest $request)
     {
         $account = Account::create($request->all());
         return response()->json($account , 200);
     }
 
-    public function update(Account $account)
+    public function update(CreateAccountRequest $account)
     {
-        $account = tap($account)->update(request()->all());
+        $account = Account::find(request()->id)->update(request()->all());
         return response()->json($account , 200);
     }
 
