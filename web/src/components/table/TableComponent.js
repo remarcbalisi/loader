@@ -23,7 +23,7 @@ const TableComponent = (props) => {
   const [orderBy, setOrderBy] = useState('name');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
-	const emptyRows = rowsPerPage - Math.min(rowsPerPage, listData.length - page * rowsPerPage);
+	// const emptyRows = rowsPerPage - Math.min(rowsPerPage, listData.length - page * rowsPerPage);
 
 	const handleRequestSort = (event, property) => {
     const isDesc = orderBy === property && order === 'desc';

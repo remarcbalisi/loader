@@ -1,8 +1,8 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import { ListItem, ListItemIcon, ListItemText, } from '@material-ui/core';
-import { DashboardRounded as DashboardRoundedIcon, PeopleRounded as PeopleRoundedIcon, LayersRounded as LayersRoundedIcon, BarChartRounded as BarChartRoundedIcon, AccountBoxRounded as AccountBoxRoundedIcon, AssignmentRounded as AssignmentRoundedIcon } from '@material-ui/icons';
+import {withRouter} from "react-router-dom";
+import {makeStyles} from '@material-ui/core/styles';
+import {ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
+import {DashboardRounded, PeopleRounded, LayersRounded, BarChartRounded, AccountBoxRounded, AssignmentRounded} from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
 	MenuItem: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const menuItems = [
-  { itemLink: '', itemLabel: 'Dashboard', restrict:'' , itemIcon: <DashboardRoundedIcon /> },
-  { itemLink: 'accounts', itemLabel: 'Accounts', restrict:'' , itemIcon: <AccountBoxRoundedIcon /> },
-  { itemLink: 'customers', itemLabel: 'Customers', restrict:'' , itemIcon: <PeopleRoundedIcon /> },
-  { itemLink: 'purchases', itemLabel: 'Purchases', restrict:'' , itemIcon: <LayersRoundedIcon /> },
-  { itemLink: 'sales', itemLabel: 'Sales', restrict:'' , itemIcon: <BarChartRoundedIcon /> },
-  { itemLink: 'reports', itemLabel: 'Reports', restrict:'' , itemIcon: <AssignmentRoundedIcon /> },
+  { itemLink: '', itemLabel: 'Dashboard', restrict:'' , itemIcon: <DashboardRounded /> },
+  { itemLink: 'accounts', itemLabel: 'Accounts', restrict:'' , itemIcon: <AccountBoxRounded /> },
+  { itemLink: 'customers', itemLabel: 'Customers', restrict:'' , itemIcon: <PeopleRounded /> },
+  { itemLink: 'purchases', itemLabel: 'Purchases', restrict:'' , itemIcon: <LayersRounded /> },
+  { itemLink: 'sales', itemLabel: 'Sales', restrict:'' , itemIcon: <BarChartRounded /> },
+  { itemLink: 'reports', itemLabel: 'Reports', restrict:'' , itemIcon: <AssignmentRounded /> },
 ];
 
 const MenuItems = (props) => {

@@ -15,3 +15,7 @@ code {
 .MuiToolbar-gutters {
 	padding-left: 0 !important;
 }
+
+input, button, div, span {
+	outline: none !important;
+}

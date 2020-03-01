@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {load, clear, save, remove} from '../redux/actions/account';
 import {makeStyles} from '@material-ui/core/styles';
 import {Paper, Grid, Button} from '@material-ui/core';
-import {AccountBoxRounded, AddCircle} from '@material-ui/icons';
-import AccountEditor from './AccountEditor';
+import {PeopleRounded, AddCircle} from '@material-ui/icons';
+// import AccountEditor from './AccountEditor';
 import PageHeader from './PageHeader';
 import SnackbarSuccess from '../components/SnackbarSuccess';
 import DialogConfirmDelete from '../components/DialogConfirmDelete';
@@ -25,7 +25,7 @@ const headCells = [
   { id:'', label:'Action', align:'right', sortable:false, searchable:false, width: 150},
 ];
 
-const Accounts = (props) => {
+const Customers = (props) => {
 
 	const { accounts, load, save, clear } = props;
 
@@ -36,15 +36,6 @@ const Accounts = (props) => {
 	useEffect(() => {
 		load();
 	}, []);
-
-	const [openEditor, setOpenEditor] = React.useState(false);
-  const handleOpenEditor = () => {
-    setOpenEditor(true);
-  };
-  const handleCloseEditor = () => {
-		setOpenEditor(false);
-		clear();
-	};
 
 	const [openSnackbar, setOpenSnackbar] = React.useState(false);
 	const handleOpenSnackbar = () => {
@@ -68,9 +59,7 @@ const Accounts = (props) => {
 	const handleSave = async () => {
 		let success = await save();
 		if(success) {
-			handleCloseEditor();
-			clear();
-			await load();
+			load();
 			setMessage('Account successfully saved.');
 			handleOpenSnackbar();
 		}
@@ -78,7 +67,7 @@ const Accounts = (props) => {
 
 	const handleEdit = async (account) => {
 		await load({id: account.id});
-		handleOpenEditor();
+		// handleOpenEditor();
 	}
 
 	const confirmDelete = (account) => {
@@ -102,13 +91,13 @@ const Accounts = (props) => {
 			<Grid item xs={12}>
 				<Grid container>
 					<Grid item xs={6}>
-						<PageHeader title="Accounts" icon={<AccountBoxRounded />} />
+						<PageHeader title="Customers" icon={<PeopleRounded />} />
 					</Grid>
 					<Grid item xs={6} className="text-right">
-						<Button variant="contained" color="primary" onClick={() => handleOpenEditor()}>
+						{/* <Button variant="contained" color="primary" onClick={() => handleOpenEditor()}>
 							<AddCircle className={classes.button} />
 							Create New
-						</Button>
+						</Button> */}
 					</Grid>
 				</Grid>
 			</Grid>
@@ -132,17 +121,11 @@ const Accounts = (props) => {
 							handleClose={() => handleCloseSnackbar()}
 						/>
 					)}
-					{openEditor && (
-						<AccountEditor
-							handleClose={() => handleCloseEditor()}
-							handleSave ={() => handleSave()}
-						/>
-					)}
 					<TableComponent
 						data={accounts}
 						headCells={headCells}
-						handleEdit={(account) => handleEdit(account)}
-						handleDelete={(account) => confirmDelete(account)}
+						// handleEdit={(account) => handleEdit(account)}
+						// handleDelete={(account) => confirmDelete(account)}
 					/>
 				</Paper>
 			</Grid>
@@ -164,4 +147,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Accounts);
+)(Customers);

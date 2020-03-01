@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './redux/store';
@@ -9,6 +8,7 @@ import {CONFIG} from './config.js';
 import App from './App';
 import {ThemeProvider} from '@material-ui/core/styles';
 import {theme} from './theme';
+import './index.css';
 
 global.axios = axios;
 axios.defaults.baseURL = CONFIG.API_URL;
