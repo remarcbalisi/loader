@@ -20,7 +20,7 @@ class AdminUserTest extends TestCase
         $adminRole = Role::create(['name' => 'admin', 'guard_name' => 'api']);
         Role::create(['name' => 'agent', 'guard_name' => 'api']);
         Role::create(['name' => 'direct', 'guard_name' => 'api']);
-        $this->admin = create(User::class);
+        $this->admin = create(User::class, ['email' => 'admin@gmail.com']);
         $this->admin->assignRole($adminRole);
     }
 
@@ -53,6 +53,25 @@ class AdminUserTest extends TestCase
             ]);
     }
 
+    public function test_admin_cannot_add_duplicate_email()
+    {
+        $this->actingAs($this->admin, 'api');
+        $data = [
+            'name' => 'user',
+            'email' => 'admin@gmail.com',
+            'password' => 'secret',
+            'role' => 'direct',
+            'address' => $this->faker->address,
+        ];
+
+        $this->postJson(route('admin.user.store'), $data)
+            ->assertJsonFragment([
+                'errors' => [
+                    'email' => ['The email has already been taken.']
+                ]
+            ]);
+    }
+
     public function test_admin_can_update_user()
     {
         $this->withoutExceptionHandling();
@@ -62,6 +81,25 @@ class AdminUserTest extends TestCase
         $data = [
             'name' => 'updated_name',
             'email' => 'user@email.com',
+            'password' => 'secret',
+            'role' => 'direct',
+            'address' => $this->faker->address,
+        ];
+
+        $this->patchJson(route('admin.user.update', ['user'=>$user]), $data)
+            ->assertJsonFragment([
+                'name' => $data['name']
+            ]);
+    }
+
+    public function test_admin_can_update_user_with_same_email()
+    {
+        $this->actingAs($this->admin, 'api');
+        $user = create(User::class, ['email' => 'same@email.com']);
+
+        $data = [
+            'name' => 'updated_name',
+            'email' => 'same@email.com',
             'password' => 'secret',
             'role' => 'direct',
             'address' => $this->faker->address,
