@@ -91,10 +91,12 @@ const TableComponent = (props) => {
 					)}
 					<TableBody>
 						{( headCells
-								&& !props.hasOwnProperty('filter')
-								|| (props.hasOwnProperty('filter') && props.filter)
+								&& (
+									!props.hasOwnProperty('filter')
+									|| (props.hasOwnProperty('filter') && props.filter)
+								)
 							)
-							&& ( <TableSearchRow
+							&& (<TableSearchRow
 								headCells={headCells}
 								searchKeys={searchKeys}
 								handleDateSearch={handleDateSearch}
@@ -112,14 +114,17 @@ const TableComponent = (props) => {
 
 										{headCells.map((cell, c) => {
 											if(cell.id) {
-												let cellText = item[cell.id];
+												let cellText = '';
 												switch(cell.type) {
 													case 'date':
-														cellText = cellText ? formatDateTime(cellText) : '';
+														cellText = item[cell.id] ? formatDateTime(item[cell.id]) : '';
 													break;
 													case 'number':
-														cellText = cellText ? formatNumber(cellText) : '';
+														cellText = item[cell.id] ? formatNumber(item[cell.id]) : '';
 													break;
+													default: {
+														cellText = item[cell.id];
+													}
 												}
 
 												return (

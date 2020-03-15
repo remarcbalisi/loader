@@ -25,6 +25,7 @@ class UserNumberUpdateRequest extends FormRequest
     {
         return [
             'number' => 'required',
+            'network' => 'required',
             'user_id' => 'required',
         ];
     }

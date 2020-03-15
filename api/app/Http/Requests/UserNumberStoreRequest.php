@@ -24,6 +24,7 @@ class UserNumberStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'network' => 'required',
             'number' => 'required',
             'user_id' => 'required',
         ];

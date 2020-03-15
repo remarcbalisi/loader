@@ -26,9 +26,18 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => "required|email|unique:users",
-            'password' => 'required',
+            // 'password' => 'required',
             'role' => 'required',
             'address' => 'required',
+            'network' => 'required',
+            'number' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'role.required' => 'The type field is required.',
         ];
     }
 }

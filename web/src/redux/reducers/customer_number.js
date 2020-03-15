@@ -1,21 +1,18 @@
-import {CUSTOMER} from '../constants/customer';
+import {CUSTOMER_NUMBER} from '../constants/customer_number';
 
 const initialState = {
 	errors: {},
 	isProcessing: false,
-	customers: [],
-  customer: {
+	numbers: [],
+  number: {
 		id: '',
-		name: '',
-		email: '',
-		address: '',
-		role: '',
 		number: '',
 		network: '',
+		status: 1,
 	},
 };
 
-const Customer = (state = initialState, action) => {
+const CustomerNumber = (state = initialState, action) => {
 
 	let newState = JSON.parse(JSON.stringify(state));
 	let type = action.type;
@@ -23,55 +20,49 @@ const Customer = (state = initialState, action) => {
 
   switch(type) {
 
-		case CUSTOMER.CUSTOMER_CLEAR_FORM : {
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_CLEAR_FORM : {
 			newState.isProcessing = false;
 			newState.errors = {};
-			newState.customer = {
+			newState.number = {
 				id: '',
-				name: '',
-				email: '',
-				address: '',
-				role: '',
 				number: '',
 				network: '',
+				status: 1,
 			};
 			return newState;
 		}
 
-		case CUSTOMER.CUSTOMER_LOAD : {
-			newState.customer = payload;
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_LOAD : {
+			newState.number = payload;
 			return newState;
 		}
 
-		case CUSTOMER.CUSTOMER_LOAD_ALL : {
-			newState.customers = payload;
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_LOAD_ALL : {
+			newState.numbers = payload;
 			return newState;
 		}
 
-		case CUSTOMER.CUSTOMER_TYPING : {
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_TYPING : {
       newState.errors = {};
 			let key = Object.keys(payload)[0];
-      newState.customer[key] = payload[key];
+      newState.number[key] = payload[key];
 			return newState;
     }
 
-		case CUSTOMER.CUSTOMER_SAVE_REQUEST : {
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_SAVE_REQUEST : {
 			newState.isProcessing = true;
-			newState.success = false;
 			newState.errors = {};
 			return newState;
 		}
 
-		case CUSTOMER.CUSTOMER_SAVE_SUCCESS : {
-			newState.success = true;
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_SAVE_SUCCESS : {
 			newState.errors = {};
 			newState.isProcessing = false;
 			newState.customer = payload;
 			return newState;
 		}
 
-		case CUSTOMER.CUSTOMER_SAVE_ERROR : {
-			newState.success = false;
+		case CUSTOMER_NUMBER.CUSTOMER_NUMBER_SAVE_ERROR : {
 			newState.isProcessing = false;
 
 			let err = [];
@@ -85,7 +76,6 @@ const Customer = (state = initialState, action) => {
 
     default: return newState;
 	}
-
 }
 
-export default Customer;
+export default CustomerNumber;

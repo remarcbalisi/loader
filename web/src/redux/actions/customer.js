@@ -1,21 +1,23 @@
-import {CUSTOMER} from '../constants/CUSTOMER';
+import {CUSTOMER} from '../constants/customer';
 
-export function clear(payload){
+export function clear(){
   return {type: CUSTOMER.CUSTOMER_CLEAR_FORM};
 }
 
-export function typing(payload){
+export  function typing(payload){
   return {type: CUSTOMER.CUSTOMER_TYPING, payload: payload};
 }
 
 export function load(payload={}) {
 	return async function(dispatch) {
 
-		let url = '/CUSTOMER';
+		let url = '/v1/admin/user';
 		let id = payload.hasOwnProperty('id') ? payload.id : null;
 
 		if(id) {
 			url += `/${payload.id}`
+		} else {
+			url += `?role[]=agent&role[]=direct`;
 		}
 
 		try {
@@ -41,9 +43,9 @@ export function save() {
 	return async function(dispatch, getState) {
 
 		dispatch({type:CUSTOMER.CUSTOMER_SAVE_REQUEST});
-		let postData = getState().CUSTOMER.CUSTOMER;
+		let postData = getState().Customer.customer;
 
-		let url = '/CUSTOMER';
+		let url = '/v1/admin/user';
 		let method = 'post';
 
 		if(postData.id) {
@@ -68,12 +70,11 @@ export function save() {
 }
 
 export function remove(id) {
-	return async function(dispatch) {
+	return async function() {
 		try {
 			await global.axios({
 				method: 'delete',
-				url: '/CUSTOMER',
-				data: {id:id},
+				url: `/v1/admin/user/${id}`,
 			});
 			return true;
 		}

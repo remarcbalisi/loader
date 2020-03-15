@@ -17,6 +17,7 @@ class UserNumberResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->number,
+            'network' => $this->network,
             'user' => $this->user,
             'status' => $this->status,
             'created_at' => $this->created_at,

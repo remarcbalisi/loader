@@ -92,7 +92,6 @@ const Accounts = (props) => {
 			load();
 			setMessage('Account successfully deleted.');
 			handleOpenSnackbar();
-			load();
 			handleCloseConfirmDelete();
 		}
 	}

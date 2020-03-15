@@ -14,7 +14,7 @@ class UserNumberController extends Controller
 {
     public function index()
     {
-        return (new UserNumberCollection(UserNumber::paginate()));
+        return (new UserNumberCollection(UserNumber::where('user_id', request('user_id'))->get()));
     }
 
     public function show(UserNumber $userNumber)
@@ -32,5 +32,11 @@ class UserNumberController extends Controller
     {
         $userNumber->update($request->all());
         return (new UserNumberResource($userNumber));
+    }
+
+    public function destroy(UserNumber $userNumber)
+    {
+        $userNumber->delete();
+        return response([], 200);
     }
 }
