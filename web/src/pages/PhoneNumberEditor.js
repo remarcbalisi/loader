@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
 import {useSelector, useDispatch} from 'react-redux'
 import {typing, clear} from '../redux/actions/customer_number';
 import {withStyles} from '@material-ui/core/styles';
@@ -105,7 +104,7 @@ const PhoneNumberEditor = (props) => {
 				open={true}
 			>
         <DialogTitle onClose={toggleModal}>
-          Add New Number
+          {number.id ? 'Update Number Details' : 'Add New Number'}
         </DialogTitle>
         <DialogContent dividers>
 					<Grid container spacing={1}>

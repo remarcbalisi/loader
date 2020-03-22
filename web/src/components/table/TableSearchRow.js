@@ -35,6 +35,7 @@ const TableSearchRow = (props) => {
 										inputVariant="outlined"
 										className={classes.searchField}
 										style={{width: '150px'}}
+										placeholder={cell.label}
 									/>
 								</MuiPickersUtilsProvider>
 							);
@@ -49,6 +50,7 @@ const TableSearchRow = (props) => {
 									className={classes.searchField}
 									name={cell.id}
 									onChange={(event) => handleTextSearch(event)}
+									placeholder={cell.label}
 								/>
 							);
 						break;
@@ -61,6 +63,7 @@ const TableSearchRow = (props) => {
 									className={classes.searchField}
 									name={cell.id}
 									onChange={(event) => handleTextSearch(event)}
+									placeholder={cell.label}
 								/>
 							);
 						break;

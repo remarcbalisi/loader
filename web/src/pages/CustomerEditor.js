@@ -81,7 +81,7 @@ const CustomerEditor = (props) => {
 				open={true}
 			>
         <DialogTitle onClose={handleClose}>
-          Create New Customer
+          {customer.id ? 'Update Customer Details' : 'Create New Customer'}
         </DialogTitle>
         <DialogContent dividers>
 					<Grid container spacing={1}>
@@ -151,7 +151,7 @@ const CustomerEditor = (props) => {
 								<Grid container spacing={2}>
 									<Grid item xs={12}>
 										<Typography variant="h6" component="h6">
-											Phone Numbers
+											Phone Number
 										</Typography>
 									</Grid>
 									<Grid item xs={12}>

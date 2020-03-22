@@ -66,14 +66,16 @@ const TableComponent = (props) => {
 
 	const handleDateSearch = (dateStr, date) => {
 
-		let arr = date.split('|');
-		let field = arr[1];
-		let value = arr[0] !== 'null' ? arr[0] : null;
+		console.log(date);
 
-    setSearchKeys({
-			...searchKeys,
-			[field]: value,
-		});
+		// let arr = date.split('|');
+		// let field = arr[1];
+		// let value = arr[0] !== 'null' ? arr[0] : null;
+
+    // setSearchKeys({
+		// 	...searchKeys,
+		// 	[field]: value,
+		// });
 
 	};
 
@@ -135,23 +137,29 @@ const TableComponent = (props) => {
 											}
 										})}
 
-										<TableCell align="right">
-											{(typeof handleView === 'function') && (
-												<IconButton size="small" onClick={() => handleView(item)}>
-													<VisibilityRounded fontSize="small" style={{color:'#46a54f'}}/>
-												</IconButton>
-											)}
-											{(typeof handleEdit === 'function') && (
-												<IconButton size="small" onClick={() => handleEdit(item)}>
-													<EditRounded fontSize="small" color="primary" />
-												</IconButton>
-											)}
-											{(typeof handleDelete === 'function') && (
-												<IconButton size="small" onClick={() => handleDelete(item)}>
-													<Delete fontSize="small" color="error" />
-												</IconButton>
-											)}
-										</TableCell>
+										{((typeof handleView === 'function')
+											|| (typeof handleEdit === 'function')
+											|| (typeof handleDelete === 'function')
+											) && (
+											<TableCell align="right">
+												{(typeof handleView === 'function') && (
+													<IconButton size="small" onClick={() => handleView(item)}>
+														<VisibilityRounded fontSize="small" style={{color:'#46a54f'}}/>
+													</IconButton>
+												)}
+												{(typeof handleEdit === 'function') && (
+													<IconButton size="small" onClick={() => handleEdit(item)}>
+														<EditRounded fontSize="small" color="primary" />
+													</IconButton>
+												)}
+												{(typeof handleDelete === 'function') && (
+													<IconButton size="small" onClick={() => handleDelete(item)}>
+														<Delete fontSize="small" color="error" />
+													</IconButton>
+												)}
+											</TableCell>
+										)}
+
 									</TableRow>
 								);
 						})}

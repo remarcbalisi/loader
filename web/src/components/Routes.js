@@ -4,6 +4,8 @@ import Dashboard from '../pages/Dashboard';
 import Accounts from '../pages/Accounts';
 import Customers from '../pages/Customers';
 import CustomerOverview from '../pages/CustomerOverview';
+import Purchases from '../pages/Purchases';
+import Sales from '../pages/Sales';
 
 const Routes = (props) => {
   return (
@@ -13,6 +15,8 @@ const Routes = (props) => {
 			<Route exact path='/accounts' component={Accounts} />
 			<Route exact path='/customers' component={Customers} />
 			<Route path='/customers/view/:id' component={CustomerOverview} />
+			<Route exact path='/purchases' component={Purchases} />
+			<Route exact path='/sales' component={Sales} />
 			<Route component={() => "404 NOT FOUND"} />
     </Switch>
   );

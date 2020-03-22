@@ -8,13 +8,30 @@ use App\Http\Requests\SalesUpdateRequest;
 use App\Http\Resources\SalesCollection;
 use App\Http\Resources\SalesResource;
 use App\Sales;
+use App\UserNumber;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
     public function index()
     {
-        return (new SalesCollection(Sales::paginate()));
+        $sales = Sales::with('account')->get()->toArray();
+
+        foreach ($sales as $k => $v)
+        {
+            $v['account_name'] = $v['account']['name'].'|'.$v['account']['number'];
+            unset($v['account']);
+
+            $number = UserNumber::with('user')
+                        ->where('id', $v['user_number_id'])
+                        ->first();
+            $v['customer_name'] = $number['user']['name'];
+            $v['customer_number'] = $number['number'];
+
+            $sales[$k] = $v;
+        }
+
+        return response()->json($sales , 200);
     }
 
     public function show(Sales $sale)

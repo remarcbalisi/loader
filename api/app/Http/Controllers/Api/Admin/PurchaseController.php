@@ -14,7 +14,12 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        return (new PurchaseCollection(Purchase::paginate()));
+        $purchases = Purchase::with('account')->get()->toArray();
+        foreach ($purchases as $k => $v) {
+            $purchases[$k]['account_name'] = $v['account']['name'];
+            $purchases[$k]['account_number'] = $v['account']['number'];
+        }
+        return response()->json($purchases , 200);
     }
 
     public function show(Purchase $purchase)

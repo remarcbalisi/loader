@@ -1,8 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {typing} from '../redux/actions/account';
+import {useSelector, useDispatch} from 'react-redux'
+import {typing} from '../redux/actions/purchase';
 import {withStyles} from '@material-ui/core/styles';
-import {Button, Dialog, DialogTitle as MuiDialogTitle, DialogContent as MuiDialogContent, DialogActions as MuiDialogActions, IconButton, Typography, Grid, TextField} from '@material-ui/core';
+import {
+	Button,
+	Dialog,
+	DialogTitle as MuiDialogTitle,
+	DialogContent as MuiDialogContent,
+	DialogActions as MuiDialogActions,
+	IconButton,
+	Typography,
+	Grid,
+	TextField
+} from '@material-ui/core';
+import {Autocomplete} from '@material-ui/lab';
 import {Close} from '@material-ui/icons';
 import FormErrors from '../components/FormErrors';
 import {isObjEmpty} from '../helpers/Functions';
@@ -50,12 +61,20 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-const AccountEditor = (props) => {
+const PurchaseEditor = (props) => {
 
-	const { typing, account, errors, handleClose, handleSave } = props;
+	const { handleClose, handleSave } = props;
+	const dispatch = useDispatch();
+	const errors = useSelector(state => state.Purchase.errors);
+	const purchase = useSelector(state => state.Purchase.purchase);
+	const accounts = useSelector(state => state.Account.accounts);
 
 	const handleFieldChange = (event) => {
-		typing({[event.target.name]:event.target.value});
+		dispatch(typing({[event.target.name]:event.target.value}));
+	}
+
+	const handleOnChange = (event, account) => {
+		dispatch(typing({ account_id:account.id }));
 	}
 
 	return (
@@ -68,59 +87,42 @@ const AccountEditor = (props) => {
 				open={true}
 			>
         <DialogTitle onClose={handleClose}>
-          {account.id ? 'Update Account Details' : 'Create New Account'}
+          Purchase
         </DialogTitle>
         <DialogContent dividers>
 					<Grid container spacing={1}>
-						{
-							!isObjEmpty(errors) && (
-								<Grid item xs={12}>
-									<FormErrors errors={errors} />
-								</Grid>
-							)
-						}
+						{!isObjEmpty(errors) && (
+							<Grid item xs={12}>
+								<FormErrors errors={errors} />
+							</Grid>
+						)}
 						<Grid item xs={12}>
-							<TextField
-								fullWidth
-								variant="outlined"
-								label="Name"
-								name="name"
-								value={account.name}
-								onChange={handleFieldChange}
-								error={errors.hasOwnProperty('name')}
+							<Autocomplete
+								disableClearable
+								options={accounts}
+								getOptionLabel={account => `${account.name} (${account.number})`}
+								onChange={handleOnChange}
+								renderInput={params => (
+									<TextField
+										{...params}
+										fullWidth
+										variant="outlined"
+										label="Account"
+										error={errors.hasOwnProperty('account_id')}
+									/>
+								)}
 							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
 								fullWidth
 								variant="outlined"
-								label="Phone Number"
-								name="number"
-								value={account.number}
+								type="number"
+								label="Amount"
+								name="amount"
+								value={purchase.amount}
 								onChange={handleFieldChange}
-								error={errors.hasOwnProperty('number')}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								fullWidth
-								variant="outlined"
-								label="Network"
-								name="network"
-								value={account.network}
-								onChange={handleFieldChange}
-								error={errors.hasOwnProperty('network')}
-							/>
-						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								fullWidth
-								multiline
-								variant="outlined"
-								label="Description"
-								name="description"
-								value={account.description}
-								onChange={handleFieldChange}
+								error={errors.hasOwnProperty('amount')}
 							/>
 						</Grid>
 					</Grid>
@@ -138,16 +140,4 @@ const AccountEditor = (props) => {
   );
 }
 
-const mapStateToProps = state => ({
-	errors: state.Account.errors,
-	account: state.Account.account,
-});
-
-const mapDispatchToProps = {
-	typing: (payload) => typing(payload)
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AccountEditor);
+export default PurchaseEditor;
