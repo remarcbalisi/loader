@@ -1,4 +1,5 @@
 import {PURCHASE} from '../constants/purchase';
+import {formatDateTime} from '../../helpers/DateFunctions';
 
 export function clear(payload){
   return {type: PURCHASE.PURCHASE_CLEAR_FORM};
@@ -41,8 +42,7 @@ export function save() {
 	return async function(dispatch, getState) {
 
 		let postData = getState().Purchase.purchase;
-
-		console.log(postData);
+		postData.date = postData.date ? formatDateTime(postData.date, '-', 'YMD') : '';
 
 		let url = '/v1/admin/purchase';
 		let method = 'post';

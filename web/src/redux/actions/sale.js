@@ -1,4 +1,5 @@
 import {SALE} from '../constants/sale';
+import {formatDateTime} from '../../helpers/DateFunctions';
 
 export function clear(){
   return {type: SALE.SALE_CLEAR_FORM};
@@ -46,6 +47,7 @@ export function save() {
 
 		let url = '/v1/admin/sales';
 		let method = 'post';
+		postData.date = postData.date ? formatDateTime(postData.date, '-', 'YMD') : '';
 
 		if(postData.id) {
 			url += `/${postData.id}`;
@@ -58,7 +60,7 @@ export function save() {
 				url: url,
 				data: postData,
 			});
-			return true;
+			return response.data;
 		}
 		catch(error) {
 			dispatch({type:SALE.SALE_SAVE_ERROR, payload:error.response.data.errors});

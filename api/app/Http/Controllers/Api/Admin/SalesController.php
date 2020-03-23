@@ -9,6 +9,7 @@ use App\Http\Resources\SalesCollection;
 use App\Http\Resources\SalesResource;
 use App\Sales;
 use App\UserNumber;
+use App\Account;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -41,8 +42,11 @@ class SalesController extends Controller
 
     public function store(SalesStoreRequest $request)
     {
-        $new_sales = Sales::create($request->all());
-        return (new SalesResource($new_sales));
+        $data = $request->all();
+        $data['balance'] = $data['amount'];
+        $new_sales = Sales::create($data);
+        Account::updateBalance($data['account_id'], -floatval($data['amount']));
+        return response()->json($new_sales , 200);
     }
 
     public function update(SalesUpdateRequest $request, Sales $sale)

@@ -21,13 +21,15 @@ const headCells = [
   { id:'name', label:'Name'},
   { id:'number', label:'Number'},
   { id:'network', label:'Network'},
-  { id:'description', label:'Description'},
+	{ id:'description', label:'Description'},
+	{ id:'created_at', label:'Date Created', align:'center', type:'date'},
+	{ id:'balance', label:'Balance', align:'right', type:'number'},
   { id:'', label:'Action', align:'right', sortable:false, searchable:false, width: 150},
 ];
 
 const Accounts = (props) => {
 
-	const { accounts, load, save, clear } = props;
+	const { accounts, load, save, clear, remove } = props;
 
 	const classes = useStyles();
 	const [message, setMessage] = useState('');
@@ -87,7 +89,7 @@ const Accounts = (props) => {
 	}
 
 	const handleDelete = async () => {
-		let success = await remove(account);
+		let success = await remove(account.id);
 		if(success) {
 			load();
 			setMessage('Account successfully deleted.');

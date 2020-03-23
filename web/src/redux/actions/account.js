@@ -72,8 +72,7 @@ export function remove(id) {
 		try {
 			await global.axios({
 				method: 'delete',
-				url: '/account',
-				data: {id:id},
+				url: `/account/${id}`,
 			});
 			return true;
 		}

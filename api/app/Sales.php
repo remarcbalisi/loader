@@ -13,10 +13,8 @@ class Sales extends Model
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
-    public function togglePaid()
+    public function number()
     {
-        $this->is_paid = !$this->is_paid;
-        $this->save();
-        return $this;
+        return $this->belongsTo(UserNumber::class, 'user_number_id', 'id');
     }
 }

@@ -8,6 +8,7 @@ const initialState = {
 		account_id: '',
 		user_number_id: '',
 		amount: '',
+		date: new Date(),
 	},
 };
 
@@ -26,6 +27,7 @@ const Sale = (state = initialState, action) => {
 				user_number_id: '',
 				account_id: '',
 				amount: '',
+				date: new Date(),
 			};
 			return newState;
 		}

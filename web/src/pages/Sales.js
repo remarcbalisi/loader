@@ -30,7 +30,7 @@ const headCells = [
   { id:'customer_name', label:'Customer Name'},
   { id:'customer_number', label:'Customer Number', align:'center'},
 	{ id:'amount', label:'Amount', align:'right', type:'number'},
-	{ id:'created_at', label:'Date Created', align:'center', type:'date'},
+	{ id:'date', label:'Date', align:'center', type:'date'},
 ];
 
 const Sales = (props) => {

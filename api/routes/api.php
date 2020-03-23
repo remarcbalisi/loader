@@ -17,6 +17,7 @@ Route::name('admin.')->group(function() {
         ]
     ], function () {
         Route::resource('user', 'UserController');
+        Route::get('user-balance/{user_id}', 'UserController@getBalance');
         Route::resource('user-number', 'UserNumberController');
         Route::resource('schedule', 'ScheduleController');
         Route::resource('purchase', 'PurchaseController');

@@ -8,6 +8,7 @@ use App\Http\Requests\PurchaseUpdateRequest;
 use App\Http\Resources\PurchaseCollection;
 use App\Http\Resources\PurchaseResource;
 use App\Purchase;
+use App\Account;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -30,6 +31,7 @@ class PurchaseController extends Controller
     public function store(PurchaseStoreRequest $request)
     {
         $new_purchase = Purchase::create($request->all());
+        Account::updateBalance($new_purchase->account_id, floatval($new_purchase->amount));
         return (new PurchaseResource($new_purchase));
     }
 
