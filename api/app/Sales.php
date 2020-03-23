@@ -17,4 +17,8 @@ class Sales extends Model
     {
         return $this->belongsTo(UserNumber::class, 'user_number_id', 'id');
     }
+
+    public function salesPayments() {
+        return $this->hasMany(SalesPayment::class, 'sale_id', 'id');
+    }
 }

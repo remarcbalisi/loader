@@ -22,6 +22,8 @@ Route::name('admin.')->group(function() {
         Route::resource('schedule', 'ScheduleController');
         Route::resource('purchase', 'PurchaseController');
         Route::resource('sales', 'SalesController');
+        Route::resource('payment', 'PaymentController');
+        Route::get('sales-payment/{sale}', 'PaymentController@viewSalesPaymentBySale')->name('sales.payment.bysale');
         Route::patch('sales-toggle-paid/{sale}', 'SalesTogglePaidController')->name('sales.toggle.paid');
     });
 });
