@@ -65,18 +65,14 @@ const TableComponent = (props) => {
 	};
 
 	const handleDateSearch = (dateStr, date) => {
+		let arr = date.split('|');
+		let field = arr[1];
+		let value = arr[0] !== 'null' ? arr[0] : null;
 
-		console.log(date);
-
-		// let arr = date.split('|');
-		// let field = arr[1];
-		// let value = arr[0] !== 'null' ? arr[0] : null;
-
-    // setSearchKeys({
-		// 	...searchKeys,
-		// 	[field]: value,
-		// });
-
+    setSearchKeys({
+			...searchKeys,
+			[field]: value,
+		});
 	};
 
 	return (
@@ -122,7 +118,7 @@ const TableComponent = (props) => {
 														cellText = item[cell.id] ? formatDateTime(item[cell.id]) : '';
 													break;
 													case 'number':
-														cellText = item[cell.id] ? formatNumber(item[cell.id]) : '';
+														cellText = item[cell.id] ? formatNumber(item[cell.id]) : '0.00';
 													break;
 													default: {
 														cellText = item[cell.id];

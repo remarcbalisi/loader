@@ -24,9 +24,10 @@ class SalesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_number_id' => 'required',
+            'date' => 'required',
             'account_id' => 'required',
-            'amount' => 'required'
+            'user_number_id' => 'required',
+            'amount' => 'required',
         ];
     }
 }

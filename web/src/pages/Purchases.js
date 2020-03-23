@@ -12,8 +12,8 @@ import TableComponent from '../components/table/TableComponent';
 const headCells = [
 	{ id:'account_name', label:'Account Name'},
 	{ id:'account_number', label:'Account Number', align: 'center'},
-  { id:'amount', label:'Amount', type: 'number', align: 'right'},
-  { id:'created_at', label:'Date', type:'date', align: 'center'},
+	{ id:'date', label:'Date', type:'date', align: 'center'},
+	{ id:'amount', label:'Amount', type: 'number', align: 'right'},
 ];
 
 const Purchases = () => {

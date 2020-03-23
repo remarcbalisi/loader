@@ -11,6 +11,7 @@ const initialState = {
 		number: '',
 		network: '',
 		description: '',
+		balance: 0,
 	},
 };
 
@@ -32,6 +33,7 @@ const Account = (state = initialState, action) => {
 				number: '',
 				network: '',
 				description: '',
+				balance: 0,
 			};
 			return newState;
 		}

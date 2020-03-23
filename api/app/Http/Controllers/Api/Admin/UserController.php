@@ -73,6 +73,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return response([], 200);;
+        return response()->json([] , 200);
+    }
+
+    public function getBalance($user_id)
+    {
+        $balance = User::getBalance($user_id);
+        return response()->json($balance , 200);
     }
 }

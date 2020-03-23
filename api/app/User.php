@@ -44,4 +44,21 @@ class User extends Authenticatable
         // return $this->hasMany(UserNumber::class, 'user_id', 'id');
         return $this->hasMany(UserNumber::class);
     }
+
+    public static function getBalance($user_id)
+    {
+        $numbers = UserNumber::where('user_id', $user_id)
+                    ->get()
+                    ->toArray();
+        $num_arr = [];
+        foreach ($numbers as $k => $v) {
+            array_push($num_arr, $v['id']);
+        }
+        $balance = Sales::with('number')
+                    ->whereIn('user_number_id', $num_arr)
+                    ->where('balance', '>', 0)
+                    ->get()
+                    ->toArray();
+        return $balance;
+    }
 }

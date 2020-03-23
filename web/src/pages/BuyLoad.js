@@ -9,10 +9,12 @@ import {
 	Button,
 	TextField
 } from '@material-ui/core';
-import {Autocomplete} from '@material-ui/lab';
+import {Autocomplete, Alert, AlertTitle} from '@material-ui/lab';
+import DateFnsUtils from '@date-io/date-fns';
+import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import SnackbarSuccess from '../components/SnackbarSuccess';
 import FormErrors from '../components/FormErrors';
-import {isObjEmpty} from '../helpers/Functions';
+import {isObjEmpty, formatNumber} from '../helpers/Functions';
 
 const useStyles = makeStyles(theme => ({
 	title: {
@@ -33,18 +35,33 @@ const BuyLoad = () => {
 	const accounts = useSelector(state => state.Account.accounts);
 	const customers = useSelector(state => state.Customer.customers);
 	const [numbers, setNumbers] = useState([]);
+	const [message, setMessage] = useState("");
+	const [openSnackbar, setOpenSnackbar] = useState(false);
 	const [account, setAccount] = useState(null);
 	const [customer, setCustomer] = useState(null);
 	const [number, setNumber] = useState(null);
+	const [disableForm, setDisableForm] = useState(true);
 
 	useEffect(() => {
 		dispatch(loadAccount());
 		dispatch(loadCustomers());
 	}, []);
 
+	useEffect(() => {
+		if(account) {
+			let newAccount = accounts.filter(item => item.id === account.id)[0];
+			setAccount(newAccount);
+		}
+	}, [accounts]);
+
+	const handleDateChange = (date) => {
+		dispatch(typing({ date: date }));
+  };
+
 	const onAccountChange = (event, account) => {
 		setAccount(account);
-		dispatch(typing({ account_id: account.id }))
+		setDisableForm(account.balance < 0);
+		dispatch(typing({ account_id: account.id }));
 	}
 
 	const onCustomerChange = (event, customer) => {
@@ -66,7 +83,7 @@ const BuyLoad = () => {
 		let success = await dispatch(save());
 		if(success) {
 			dispatch(clear());
-			setAccount(null);
+			dispatch(loadAccount());
 			setCustomer(null);
 			setNumber(null);
 			setMessage('Sale successfully saved.');
@@ -74,8 +91,6 @@ const BuyLoad = () => {
 		}
 	}
 
-	const [message, setMessage] = useState("");
-	const [openSnackbar, setOpenSnackbar] = React.useState(false);
 	const handleOpenSnackbar = () => {
 		setOpenSnackbar(true);
 	}
@@ -101,6 +116,24 @@ const BuyLoad = () => {
 							handleClose={() => handleCloseSnackbar()}
 						/>
 					)}
+					<Grid item xs={2} className={classes.gridLabel}>Date:</Grid>
+					<Grid item xs={10}>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								disableToolbar
+								autoOk
+								fullWidth
+								variant="inline"
+								margin="dense"
+								format="MM/dd/yyyy"
+								animateYearScrolling={true}
+								inputVariant="outlined"
+								value={sale.date}
+								onChange={handleDateChange}
+								error={errors.hasOwnProperty('date')}
+							/>
+						</MuiPickersUtilsProvider>
+					</Grid>
 					<Grid item xs={2} className={classes.gridLabel}>Account:</Grid>
 					<Grid item xs={10}>
 						<Autocomplete
@@ -128,6 +161,7 @@ const BuyLoad = () => {
 							options={customers}
 							getOptionLabel={option => option.name}
 							onChange={onCustomerChange}
+							disabled={disableForm}
 							renderInput={params => (
 								<TextField
 									{...params}
@@ -146,6 +180,7 @@ const BuyLoad = () => {
 							options={numbers}
 							getOptionLabel={option => `${option.number} | ${option.network}`}
 							onChange={onNumberChange}
+							disabled={disableForm}
 							renderInput={params => (
 								<TextField
 									{...params}
@@ -168,6 +203,7 @@ const BuyLoad = () => {
 							value={sale.amount}
 							onChange={handleFieldChange}
 							error={errors.hasOwnProperty('amount')}
+							disabled={disableForm}
 						/>
 					</Grid>
 					{/* <Grid item xs={2} className={classes.gridLabel}>Payment:</Grid>
@@ -184,16 +220,27 @@ const BuyLoad = () => {
 						/>
 					</Grid> */}
 					<Grid item xs={12} className="text-right">
-						<Button variant="contained" color="primary" size="large" onClick={() => handleSubmit()}>
+						<Button
+							variant="contained"
+							color="primary"
+							size="large"
+							onClick={() => handleSubmit()}
+							disabled={disableForm}
+						>
 							Buy Load
 						</Button>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item sm={6} xs={12}>
-				{/* <Paper>
-						History
-				</Paper> */}
+				<Grid container spacing={2}>
+					<Alert severity="info" style={{width: '100%', marginTop: '14px'}}>
+						<AlertTitle>Account Balance</AlertTitle>
+						<div style={{width:'100%',textAlign:'right', fontSize: '32px', fontWeight: 'bold'}}>
+							{account ? formatNumber(account.balance) : '0.00'}
+						</div>
+					</Alert>
+				</Grid>
 			</Grid>
 		</Grid>
 	)

@@ -14,6 +14,8 @@ import {
 	TextField
 } from '@material-ui/core';
 import {Autocomplete} from '@material-ui/lab';
+import DateFnsUtils from '@date-io/date-fns';
+import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import {Close} from '@material-ui/icons';
 import FormErrors from '../components/FormErrors';
 import {isObjEmpty} from '../helpers/Functions';
@@ -77,6 +79,10 @@ const PurchaseEditor = (props) => {
 		dispatch(typing({ account_id:account.id }));
 	}
 
+	const handleDateChange = (date) => {
+		dispatch(typing({ date: date }));
+  };
+
 	return (
     <div>
       <Dialog
@@ -90,12 +96,29 @@ const PurchaseEditor = (props) => {
           Purchase
         </DialogTitle>
         <DialogContent dividers>
-					<Grid container spacing={1}>
+					<Grid container spacing={2}>
 						{!isObjEmpty(errors) && (
 							<Grid item xs={12}>
 								<FormErrors errors={errors} />
 							</Grid>
 						)}
+						<Grid item xs={12}>
+							<MuiPickersUtilsProvider utils={DateFnsUtils}>
+								<KeyboardDatePicker
+									disableToolbar
+									autoOk
+									fullWidth
+									variant="inline"
+									label="Date"
+									format="MM/dd/yyyy"
+									animateYearScrolling={true}
+									inputVariant="outlined"
+									value={purchase.date}
+									onChange={handleDateChange}
+									error={errors.hasOwnProperty('date')}
+								/>
+							</MuiPickersUtilsProvider>
+						</Grid>
 						<Grid item xs={12}>
 							<Autocomplete
 								disableClearable

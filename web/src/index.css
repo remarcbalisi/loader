@@ -19,3 +19,7 @@ code {
 input, button, div, span {
 	outline: none !important;
 }
+
+.MuiAlert-message {
+	width: 100% !important;
+}

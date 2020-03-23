@@ -8,7 +8,7 @@ import {PeopleRounded, AddCircle} from '@material-ui/icons';
 import CustomerEditor from './CustomerEditor';
 import PageHeader from './PageHeader';
 import SnackbarSuccess from '../components/SnackbarSuccess';
-import DialogConfirmDelete from '../components/DialogConfirmDelete';
+// import DialogConfirmDelete from '../components/DialogConfirmDelete';
 import TableComponent from '../components/table/TableComponent';
 
 const useStyles = makeStyles(theme => ({
@@ -61,13 +61,13 @@ const Customers = (props) => {
 		setOpenSnackbar(false);
 	}
 
-	const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
-	const handleOpenConfirmDelete = () => {
-		setOpenConfirmDelete(true);
-	}
-	const handleCloseConfirmDelete = () => {
-		setOpenConfirmDelete(false);
-	}
+	// const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
+	// const handleOpenConfirmDelete = () => {
+	// 	setOpenConfirmDelete(true);
+	// }
+	// const handleCloseConfirmDelete = () => {
+	// 	setOpenConfirmDelete(false);
+	// }
 
 	const handleSave = async () => {
 		let success = await save();
@@ -88,20 +88,20 @@ const Customers = (props) => {
 		toggleEditor();
 	}
 
-	const confirmDelete = (customer) => {
-		setCustomer(customer);
-		handleOpenConfirmDelete();
-	}
+	// const confirmDelete = (customer) => {
+	// 	setCustomer(customer);
+	// 	handleOpenConfirmDelete();
+	// }
 
-	const handleDelete = async () => {
-		let success = await remove(customer.id);
-		if(success) {
-			load();
-			setMessage('Customer successfully deleted.');
-			handleOpenSnackbar();
-			handleCloseConfirmDelete();
-		}
-	}
+	// const handleDelete = async () => {
+	// 	let success = await remove(customer.id);
+	// 	if(success) {
+	// 		load();
+	// 		setMessage('Customer successfully deleted.');
+	// 		handleOpenSnackbar();
+	// 		handleCloseConfirmDelete();
+	// 	}
+	// }
 
   return (
 		<Grid container spacing={1}>
@@ -120,7 +120,7 @@ const Customers = (props) => {
 			</Grid>
 			<Grid item xs={12}>
 				<Paper>
-					{openConfirmDelete && (
+					{/* {openConfirmDelete && (
 						<DialogConfirmDelete
 							title={<span>Are you sure?</span>}
 							content={
@@ -131,7 +131,7 @@ const Customers = (props) => {
 							handleClose={() => handleCloseConfirmDelete()}
 							handleYes={() => handleDelete()}
 						/>
-					)}
+					)} */}
 					{openSnackbar && (
 						<SnackbarSuccess
 							message={message}
@@ -148,7 +148,7 @@ const Customers = (props) => {
 						data={customers}
 						headCells={headCells}
 						handleEdit={(customer) => handleEdit(customer)}
-						handleDelete={(customer) => confirmDelete(customer)}
+						// handleDelete={(customer) => confirmDelete(customer)}
 						handleView={(customer) => handleView(customer)}
 					/>
 				</Paper>

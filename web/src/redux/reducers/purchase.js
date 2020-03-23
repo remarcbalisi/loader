@@ -7,6 +7,7 @@ const initialState = {
 		id: '',
 		account_id: '',
 		amount: '',
+		date: new Date(),
 	},
 };
 
@@ -24,6 +25,7 @@ const Purchase = (state = initialState, action) => {
 				id: '',
 				account_id: '',
 				amount: '',
+				date: new Date(),
 			};
 			return newState;
 		}
